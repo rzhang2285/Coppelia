@@ -16,12 +16,13 @@ git submodule update --init --recursive
 
 ## Installation
 ### Klee
-Please refer to website: [http://klee.github.io/build-llvm34/](http://klee.github.io/build-llvm34/) about 
+Please refer to website: [http://klee.github.io/releases/docs/v1.3.0/build-llvm34/](http://klee.github.io/releases/docs/v1.3.0/build-llvm34/) about 
 how to build KLEE.
 
 ### Verilator
 ```
 git clone http://git.veripool.org/git/verilator
+git checkout verilator_3_900
 cd verilator
 autoconf
 ./configure
