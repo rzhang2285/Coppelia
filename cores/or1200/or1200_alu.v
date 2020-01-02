@@ -133,7 +133,8 @@ assign a_eq_b = !(|result_sum);
 assign a_lt_b = comp_op[3] ? ((a[width-1] & !b[width-1]) |  
 			      (!a[width-1] & !b[width-1] & result_sum[width-1])|
 			      (a[width-1] & b[width-1] & result_sum[width-1])):
-		(a < b);
+result_sum[width-1]; // b06
+//		(a < b);
 
 `endif
    
