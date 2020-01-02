@@ -3,7 +3,7 @@ import sys
 import argparse
 import ctypes
 
-bug_no = 21 
+bug_no = 20 
 
 full_signals_except_1 = [
         'top->__VlSymsp->TOP__or1200_cpu__or1200_except.__PVT__delayed1_ex_dslot', 
@@ -151,7 +151,7 @@ def gentb(fsm_no, last_cycle, assert_list):
     testbench.write('#include "obj_dir/Vor1200_cpu__Syms.h"\n')
     testbench.write('#include "verilated.h"\n')
     testbench.write('#include <klee/klee.h>\n')
-    testbench.write('#include "../../include/constraints.h"\n')
+    testbench.write('#include "../include/constraints.h"\n')
 
     testbench.write('int main(int argc, char **argv) {\n')
     testbench.write('   Vor1200_cpu* top = new Vor1200_cpu;\n')
@@ -173,6 +173,7 @@ def gentb(fsm_no, last_cycle, assert_list):
     testbench.write('   clk = !clk; \n')
     testbench.write('   top->clk = clk; \n')
     testbench.write('   top->eval(); \n')
+
 
     testbench.write('unsigned int icpu_dat_i, icpu_ack_i, icpu_rty_i, icpu_err_i;\n')
     testbench.write('unsigned int icpu_adr_i, icpu_tag_i, dcpu_dat_i, dcpu_ack_i;\n')
@@ -218,8 +219,9 @@ def gentb(fsm_no, last_cycle, assert_list):
             for s in fsm[int(i)]:
                 testbench.write('klee_make_symbolic(&'+s+', sizeof('+s+'), "'+s+'");\n')
     for m in mk_list:
-        for s in fsm[m]:
-            testbench.write('klee_make_symbolic(&'+s+', sizeof('+s+'), "'+s+'");\n')
+	if (m != mk_list[-1]):
+	    for s in fsm[m]:
+                testbench.write('klee_make_symbolic(&'+s+', sizeof('+s+'), "'+s+'");\n')
     testbench.write('\n')
 
     testbench.write('or1k_constraints(icpu_dat_i);\n');
@@ -244,8 +246,8 @@ def gentb(fsm_no, last_cycle, assert_list):
     for m in mk_list:
         if (m == mk_list[-1]):
             if (already_end == 0):
-                testbench.write(range_fsm_end[int(m)])
                 already_end = 1
+	    testbench.write(");")
         else:
             testbench.write(range_fsm_middle[int(m)])
     testbench.write('\n')

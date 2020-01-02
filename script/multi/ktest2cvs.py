@@ -22,7 +22,11 @@ if (len(sys.argv) != 2):
 
 kleelast_path = str(sys.argv[1])
 target = open("testcases.csv", 'w')
-decode = open("instructions.txt", 'w')
+if os.path.exists("instructions.txt"):
+    append_write = 'a'
+else:
+    append_write = 'w'
+decode = open("instructions.txt", append_write)
 
 first = True
 dinsn = False

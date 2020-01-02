@@ -86,10 +86,11 @@ def disassemble(insn, pc=0):
         decode = calOperands(insnhex, opcode, decode, pc)
         return decode
 
-print disassemble("c0002811")
-print disassemble("d7e25ff4")
-print disassemble("9c60000c")
-print disassemble("e0a62803")
+#print disassemble("c0002811")
+#print disassemble("d7e25ff4")
+#print disassemble("9c60000c")
+#print disassemble("e0a62803")
+
 # pc = 0x228
 # print disassemble("24000000", pc)
 # print disassemble("2800007A", pc)
